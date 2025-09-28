@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import Icon from "@/components/ui/icon";
 import BookingForm from "@/components/BookingForm";
+import ReviewsSection from "@/components/ReviewsSection";
 
 const Index = () => {
   const [isBookingOpen, setIsBookingOpen] = useState(false);
@@ -62,6 +63,7 @@ const Index = () => {
               <a href="#sizes" className="text-gray-700 hover:text-pink-400 transition-colors">Размеры</a>
               <a href="#prices" className="text-gray-700 hover:text-pink-400 transition-colors">Цены</a>
               <a href="#booking" className="text-gray-700 hover:text-pink-400 transition-colors">Бронирование</a>
+              <a href="#reviews" className="text-gray-700 hover:text-pink-400 transition-colors">Отзывы</a>
               <a href="#contacts" className="text-gray-700 hover:text-pink-400 transition-colors">Контакты</a>
             </div>
             <Button className="bg-pink-200 text-pink-800 hover:bg-pink-300 font-nunito rounded-2xl">
@@ -348,6 +350,9 @@ const Index = () => {
           </div>
         </div>
       </section>
+
+      {/* Reviews */}
+      <ReviewsSection />
 
       {/* Footer */}
       <footer className="bg-gray-800 text-white py-12">
