@@ -1,9 +1,13 @@
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import Icon from "@/components/ui/icon";
+import BookingForm from "@/components/BookingForm";
 
 const Index = () => {
+  const [isBookingOpen, setIsBookingOpen] = useState(false);
   const dresses = [
     {
       id: 1,
@@ -81,14 +85,21 @@ const Index = () => {
               Возраст от 1 до 7 лет. Создаём сказочные моменты!
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="bg-pink-200 text-pink-800 hover:bg-pink-300 font-nunito text-lg px-8 py-4 rounded-2xl animate-scale-in">
+              <Button size="lg" className="bg-pink-200 text-pink-800 hover:bg-pink-300 font-nunito text-lg px-8 py-4 rounded-2xl animate-scale-in" onClick={() => document.getElementById('catalog')?.scrollIntoView({ behavior: 'smooth' })}>
                 <Icon name="Heart" size={20} className="mr-2" />
                 Смотреть каталог
               </Button>
-              <Button variant="outline" size="lg" className="border-pink-200 text-pink-600 hover:bg-pink-50 font-nunito text-lg px-8 py-4 rounded-2xl">
-                <Icon name="Calendar" size={20} className="mr-2" />
-                Забронировать
-              </Button>
+              <Dialog open={isBookingOpen} onOpenChange={setIsBookingOpen}>
+                <DialogTrigger asChild>
+                  <Button variant="outline" size="lg" className="border-pink-200 text-pink-600 hover:bg-pink-50 font-nunito text-lg px-8 py-4 rounded-2xl">
+                    <Icon name="Calendar" size={20} className="mr-2" />
+                    Забронировать
+                  </Button>
+                </DialogTrigger>
+                <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto bg-transparent border-0 shadow-none">
+                  <BookingForm />
+                </DialogContent>
+              </Dialog>
             </div>
           </div>
         </div>
@@ -160,13 +171,20 @@ const Index = () => {
                   <p className="font-comfortaa text-2xl font-bold text-pink-600">{dress.price}</p>
                 </CardContent>
                 <CardFooter className="p-6 pt-0">
-                  <Button 
-                    className="w-full bg-pink-200 text-pink-800 hover:bg-pink-300 font-nunito rounded-2xl"
-                    disabled={!dress.available}
-                  >
-                    <Icon name="Heart" size={16} className="mr-2" />
-                    {dress.available ? 'Забронировать' : 'Недоступно'}
-                  </Button>
+                  <Dialog open={isBookingOpen} onOpenChange={setIsBookingOpen}>
+                    <DialogTrigger asChild>
+                      <Button 
+                        className="w-full bg-pink-200 text-pink-800 hover:bg-pink-300 font-nunito rounded-2xl"
+                        disabled={!dress.available}
+                      >
+                        <Icon name="Heart" size={16} className="mr-2" />
+                        {dress.available ? 'Забронировать' : 'Недоступно'}
+                      </Button>
+                    </DialogTrigger>
+                    <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto bg-transparent border-0 shadow-none">
+                      <BookingForm />
+                    </DialogContent>
+                  </Dialog>
                 </CardFooter>
               </Card>
             ))}
@@ -240,7 +258,18 @@ const Index = () => {
             Забронируйте платье для вашей маленькой принцессы прямо сейчас!
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="bg-pink-200 text-pink-800 hover:bg-pink-300 font-nunito text-lg px-8 py-4 rounded-2xl">
+            <Dialog open={isBookingOpen} onOpenChange={setIsBookingOpen}>
+              <DialogTrigger asChild>
+                <Button size="lg" className="bg-pink-200 text-pink-800 hover:bg-pink-300 font-nunito text-lg px-8 py-4 rounded-2xl">
+                  <Icon name="Calendar" size={20} className="mr-2" />
+                  Забронировать онлайн
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto bg-transparent border-0 shadow-none">
+                <BookingForm />
+              </DialogContent>
+            </Dialog>
+            <Button size="lg" className="bg-green-200 text-green-800 hover:bg-green-300 font-nunito text-lg px-8 py-4 rounded-2xl">
               <Icon name="MessageCircle" size={20} className="mr-2" />
               WhatsApp
             </Button>
